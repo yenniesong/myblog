@@ -1,4 +1,4 @@
-my blog 나만의 블로그 프로젝트
+my blog 나만의 블로그 프로젝트 + ("/n")
 IntelliJ
 java
 mysql
