@@ -4,6 +4,7 @@ import com.study.myblog.model.RoleType;
 import com.study.myblog.model.User;
 import com.study.myblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,7 +20,7 @@ public class DummyCotrollerTest {
     @Autowired  // 의존성 주입
     private UserRepository userRepository;  // DummyCotrollerTest가 메모리에 띄어줄 때 같이 UserRepository도 띄어준다.
 
-    @Transactional
+    @Transactional  // 함수 종료시에 자동 commit이 됨.
     @PutMapping("/dummy/user/{id}") // detail 메소드와 주소가 동일한데 괜찮은 이유는 PutMapping이라서 ! 상관 없음
     public User updateUser(@PathVariable long id, @RequestBody User requestUser){    // email, password
         // json 데이터를 요청 => Java Object(MessageConverter의 Jackson 라이브러리가 변환해서 받아줌)
@@ -43,9 +44,7 @@ public class DummyCotrollerTest {
         // save 함수는 id를 전달하면 해당 id에 대한 데이터가 있을 때 update, 없을 때 insert를 한다.
 
         // 더티 체킹
-
-
-        return null;
+        return user;
     }
 
     @GetMapping("/dummy/users")  // http://localhost:8096/myblog/dummy/users
@@ -99,6 +98,17 @@ public class DummyCotrollerTest {
         user.setRole(RoleType.USER);
         userRepository.save(user);
         return "회원가입이 완료되었습니다.";
+    }
+
+    @DeleteMapping("/dummy/user/{id}")
+    public String delete(@PathVariable long id) {
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return "삭제에 실패하였습니다. 해당 id는 DB에 없습니다.";
+        }
+
+        return "삭제되었습니다. id : " + id;
     }
 
 }
