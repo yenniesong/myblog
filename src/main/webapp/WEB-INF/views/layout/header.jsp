@@ -18,10 +18,10 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/user/login">Login</a>
+                <a class="nav-link" href="/myblog/user/loginForm">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/user/join">Join</a>
+                <a class="nav-link" href="/myblog/user/joinForm">Join</a>
             </li>
         </ul>
     </div>
