@@ -3,7 +3,8 @@
 <%@include file="../layout/header.jsp"%>
 
 <div class="container">
-    <form action="/action_page.php">
+<%--    <form action="/user/join" method="post"> 옛날 방식 json으로 변경해준다. --%>
+    <form>
         <div class="form-group">
             <label for="username">User name</label>
             <input type="text" class="form-control" placeholder="Enter username" id="username">
