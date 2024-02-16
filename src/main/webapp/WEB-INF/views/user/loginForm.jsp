@@ -18,11 +18,11 @@
                 <input class="form-check-input" type="checkbox"> Remember me
             </label>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
     </form>
-
+    <button id="btn-login" class="btn btn-primary">Login</button>
 </div>
 
+<script src="/js/user.js"></script>
 <%@include file="../layout/footer.jsp"%>
 
 
