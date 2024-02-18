@@ -18,9 +18,7 @@ public class UserApiController {
     @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) {
         System.out.print("UserApiController : save 호출됨");
-        // 실제로 db에 insert를 하고 아래에서 return을 구현해준다.
 
-        user.setRole(RoleType.USER);
         userService.회원가입(user);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);  // 자바 오브젝트를 JSON으로 변환해서 리턴 (Jackson이 실행)
     }

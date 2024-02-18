@@ -3,7 +3,7 @@
 <%@include file="../layout/header.jsp"%>
 
 <div class="container">
-    <form action="#" method="post"> 옛날 방식 json으로 변경해준다.
+    <form action="#" method="post"> <%--옛날 방식 json으로 변경해준다.--%>
         <div class="form-group">
             <label for="username">User name</label>
             <input type="text" name="username" class="form-control" placeholder="Enter username" id="username">
