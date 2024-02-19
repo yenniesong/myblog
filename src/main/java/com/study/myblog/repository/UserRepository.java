@@ -4,8 +4,10 @@ import com.study.myblog.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
 
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUsername(String username);
 }
 
 // security 사용에 있어서 아래 코드는 필요가 없으므로 하단에 일단 위치해둠
