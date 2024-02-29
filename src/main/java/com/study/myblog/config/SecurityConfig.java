@@ -30,7 +30,7 @@ public class SecurityConfig {
 
         // 2. 인증 주소 설정
         http.authorizeRequests(
-                authorize -> authorize.antMatchers("/", "/auth/**", "/js/**", "/css/**, ", "/image/**", "/dummy/**").permitAll()
+                authorize -> authorize.antMatchers("/", "/auth/**", "/js/**", "/css/**, ", "/static/image/**", "/dummy/**").permitAll()
                         .anyRequest().authenticated()
         );
 
