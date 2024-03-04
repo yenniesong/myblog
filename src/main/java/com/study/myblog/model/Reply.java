@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
-    private long id;
+    private int id;
 
     @Column(nullable = false, length = 200)
     private String content;

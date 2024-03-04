@@ -22,7 +22,7 @@ public class DummyCotrollerTest {
 
     @Transactional  // 함수 종료시에 자동 commit이 됨.
     @PutMapping("/dummy/user/{id}") // detail 메소드와 주소가 동일한데 괜찮은 이유는 PutMapping이라서 ! 상관 없음
-    public User updateUser(@PathVariable long id, @RequestBody User requestUser){    // email, password
+    public User updateUser(@PathVariable int id, @RequestBody User requestUser){    // email, password
         // json 데이터를 요청 => Java Object(MessageConverter의 Jackson 라이브러리가 변환해서 받아줌)
         System.out.println("id : " + id);
         System.out.println("password : " + requestUser.getPassword());
@@ -61,7 +61,7 @@ public class DummyCotrollerTest {
     }
 
     @GetMapping("/dummy/user/{id}") // {id} -> 주소로 파라미터를 전달 받을 수 있음
-    public User detail(@PathVariable long id){
+    public User detail(@PathVariable int id){
         // user/4를 찾으면 내가 디비에서 못 찾아오게 될 때 user가 null이 될 것 아냐?
         // 그럼 return null 이 리턴 돼! 그럼 프로그램에 문제가 생기지 않겠니?
         // Optional로 너의 User 객체를 감싸서 가져올테니 null 인지 아닌지 판단해서 return 해
@@ -101,7 +101,7 @@ public class DummyCotrollerTest {
     }
 
     @DeleteMapping("/dummy/user/{id}")
-    public String delete(@PathVariable long id) {
+    public String delete(@PathVariable int id) {
         try {
             userRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
