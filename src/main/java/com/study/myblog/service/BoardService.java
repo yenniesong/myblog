@@ -1,10 +1,12 @@
 package com.study.myblog.service;
 
+import com.study.myblog.dto.ReplySaveRequestDto;
 import com.study.myblog.model.Board;
 import com.study.myblog.model.Reply;
 import com.study.myblog.model.User;
 import com.study.myblog.repository.BoardRepository;
 import com.study.myblog.repository.ReplyRepository;
+import com.study.myblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Service    // 스프링이 컴포넌트 스캔을 통해서 Bean에 등록을 해줌. (loC를 해줌)
 public class BoardService {
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private BoardRepository boardRepository;
     @Autowired
@@ -54,14 +58,23 @@ public class BoardService {
         // 해당 함수로 종료시에 (Service가 종료될 때) 트랜젝션이 종료됨. 이때 더티체킹 - 자동 업데이트가 됨. -> db flush
     }
     @Transactional
-    public void 댓글쓰기(User user, int boardId, Reply requestReply) {
-        Board board = boardRepository.findById(boardId).orElseThrow(()->{
+    public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
+        User user = userRepository.findById(replySaveRequestDto.getUserId()).orElseThrow(()->{
+            return new IllegalArgumentException("댓글 쓰기 실패 : 유저 id를 찾을 수 없습니다.");
+        });
+        Board board = boardRepository.findById(replySaveRequestDto.getBoardId()).orElseThrow(()->{
             return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
         });
-        requestReply.setUser(user);
-        requestReply.setBoard(board);
+        Reply reply = Reply.builder()
+                .user(user)
+                .board(board)
+                .content(replySaveRequestDto.getContent())
+                .build();
 
-        replyRepository.save(requestReply);
+//        Reply reply = new Reply();
+//        reply.update(user, board, replySaveRequestDto.getContent());
+
+        replyRepository.save(reply);
 
     }
 }
